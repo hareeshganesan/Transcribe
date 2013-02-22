@@ -1,0 +1,33 @@
+body{
+	background-color: #DDD;
+}
+a {
+   text-decoration: none;
+   color: gray;
+   hover: black;
+} 
+
+#urlsection{
+	margin-top:2em;
+}
+textarea {
+  margin-top: 2em;
+
+}
+
+#notebox {
+	margin-top : 1.5em;
+	margin-bottom: 1.5em;
+	padding : 1em;
+	height:30em;
+	word-wrap:break-word;
+	border: 1px solid #C3C3C3;
+}
+
+#player {
+	margin-top: 8em;
+}
+.container-fluid{
+	margin-top:2em;
+}
+

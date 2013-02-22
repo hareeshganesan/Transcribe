@@ -1,0 +1,8 @@
+TO launch:
+	Go to DOS/Terminal and type:
+		python manage.py runserver
+
+	Go to http://127.0.0.1:8000/transcribe
+
+You can also view the HTML/JS in this file
+	Transcribe/Transcribe/templates/root.html
