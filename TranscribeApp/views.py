@@ -12,3 +12,11 @@ def root(request):
 		})
 	html = t.render(c)
 	return HttpResponse(html)
+
+def test(request):
+	t = get_template('test_root.html')
+	c = RequestContext(request, {
+		'username':'Hareesh'
+		})
+	html = t.render(c)
+	return HttpResponse(html)

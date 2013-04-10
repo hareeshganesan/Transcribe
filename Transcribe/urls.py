@@ -7,8 +7,9 @@ from Transcribe.views import hello, root
 
 urlpatterns = patterns('',
 	('^hello/$', hello),
-	('^$', root),
-	url(r'^transcribe/', include('TranscribeApp.urls', namespace="transcribe")),
+	('^transcribe/', include('TranscribeApp.urls', namespace="transcribe")),
+    (r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'registration/login.html'}),
+    
     # Examples:
     # url(r'^$', 'Transcribe.views.home', name='home'),
     # url(r'^Transcribe/', include('Transcribe.foo.urls')),

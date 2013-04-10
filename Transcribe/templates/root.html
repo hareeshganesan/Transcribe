@@ -36,6 +36,7 @@
 						<input id="vidurl" type="text" placeholder="Paste URL here">
 					</div>
 					<div class="span12 well" id="notebox" onClick="this.contentEditable='true';"></div>
+					<div id="editor"></div>
 				</div>
 			</div>
 			<div class="span6">
@@ -46,6 +47,7 @@
 	
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="{{ STATIC_URL }}js/bootstrap-wysiwyg.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 	<script>
 	
@@ -134,7 +136,7 @@
 				wordSet.push(jQuery.extend(deep=true, {}, lastWord));
 				lastWord = new Word("", player.getCurrentTime());
 			}
-			if(wordSet.length%10 == 0){
+			if(wordSet.length%10 == 0 && wordSet.length>0){
 				displayLinks();
 			}
 
