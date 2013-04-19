@@ -133,7 +133,7 @@
 			lastWord.word = lastWord.word+character;
 
 			if(event.keyCode == 32){
-				wordSet.push(jQuery.extend(deep=true, {}, lastWord));
+        wordSet.push(jQuery.extend(deep=true, {}, lastWord)); //deep copy the old word into the wordset
 				lastWord = new Word("", player.getCurrentTime());
 			}
 			if(wordSet.length%10 == 0 && wordSet.length>0){
@@ -150,11 +150,10 @@
 			}
 			$("#notebox").html(fulltext);
 			setEndOfContenteditable($("#notebox").get(0));
+      wordSet.push(new Word("", player.getCurrentTime()));
 		}
-		/*
-			1) Each word should be mapped to a time.
-		*/
+
 	</script>
-	Welcome, {{ username }}
+
   </body>
 </html>
