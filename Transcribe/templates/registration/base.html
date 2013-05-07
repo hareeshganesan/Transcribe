@@ -21,18 +21,32 @@
               <li><a href="#contact">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
-          <form class="navbar-form pull-right">
-                    <input class="span2" name="textinput1" placeholder="Email"
-                    type="email"> <input class="span2" name="textinput2"
-                    placeholder="Password" type="password"> <button class=
-                    "btn">Sign in</button>
-          </form>
+          <ul class="nav pull-right" id="auth">
+            <li> <a  onclick="return($.toggleLogin())">Sign in</a> </li>
+            <li> <a href="/register">Join</a> </li>
+          </ul>
+           <div class="nav pull-right" id="login-form" style="display:none;">
+             <form id="login-form" method="post" action="{% url django.contrib.auth.views.login %}">
+              <div>
+               {% csrf_token %}
+							 <label for="top-email">Email</label>
+               <input id="top-email" type="text" name="email" tabindex="2"/>
+               <label for="top-password">Password</label>
+               <input id="top-password" type="password" name="password" tabindex="3"/>
+               <label for="top-persistent">Remember?</label>
+               <input id="top-persistent" name="remember" type="checkbox" checked="checked" tabindex="4" />
+               <button id="login-input-go" value="Go" name="submit" type="submit" tabindex="5">Go</button>
+               </div>
+             </form>
+            </div>            
+          </div>
         </div>
       </div>
     </div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script src="{{ STATIC_URL }}js/bootstrap-wysiwyg.js"></script>
+  <script src="{{ STATIC_URL }}js/base.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 
   

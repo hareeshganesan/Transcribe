@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls.defaults import *
 from Transcribe.views import hello, root
 
 # Uncomment the next two lines to enable the admin:
