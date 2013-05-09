@@ -6,5 +6,5 @@ from TranscribeApp import views
 urlpatterns = patterns('', 
 	url(r'^$', views.root, name='index'),
 	url(r'^test$', views.test, name='index'),
-	
+	url(r'^accounts$', views.accounts, name='accounts'),
 	)

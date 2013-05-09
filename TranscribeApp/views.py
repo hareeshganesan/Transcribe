@@ -8,7 +8,7 @@ def hello(request):
 def root(request):
 	t = get_template('root.html')
 	c = RequestContext(request, {
-		'username':'Hareesh'
+    'next':'/'
 		})
 	html = t.render(c)
 	return HttpResponse(html)
@@ -18,5 +18,12 @@ def test(request):
 	c = RequestContext(request, {
 		'username':'Hareesh'
 		})
+	html = t.render(c)
+	return HttpResponse(html)
+
+
+
+def accounts(request):
+	t = get_template('accounts.html')
 	html = t.render(c)
 	return HttpResponse(html)

@@ -28,13 +28,13 @@ textarea {
 	margin-top: 8em;
 }
 .container-fluid{
-	margin-top:2em;
+	margin-top:3em;
 }
 
 
 /* Login */
-#login-form { float: right; margin-top: 6px; color: #555; }
-#login-form label { float: left; padding: 6px; margin-left: 10px; }
+#login-form { float: right; margin-top: 6px; margin-bottom:0px; color: #555; }
+#login-form label { float: left; padding: 3px; margin-left: 10px; }
 #login-form input {float:left; width: 130px; background: #f0f0f0;}
 #login-form .login-input-go {margin-left: 4px;}
 input#top-persistent {width: 20px;}

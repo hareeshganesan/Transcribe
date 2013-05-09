@@ -22,20 +22,29 @@
             </ul>
           </div><!--/.nav-collapse -->
           <ul class="nav pull-right" id="auth">
-            <li> <a  onclick="return($.toggleLogin())">Sign in</a> </li>
+            
+            {% if user.is_authenticated %}
+            
+            <li> <a href="{% url 'transcribe:accounts' %}">My Account</a> </li>
+            <li> <a href="{% url django.contrib.auth.views.logout %}">Log Out</a> </li>
+            {% else %}
+                <li> <a  onclick="return($.toggleLogin())">Sign in</a> </li>
+            {% endif %}
+            
             <li> <a href="/register">Join</a> </li>
           </ul>
            <div class="nav pull-right" id="login-form" style="display:none;">
              <form id="login-form" method="post" action="{% url django.contrib.auth.views.login %}">
               <div>
                {% csrf_token %}
-							 <label for="top-email">Email</label>
-               <input id="top-email" type="text" name="email" tabindex="2"/>
+							 <label for="top-email">Username</label>
+               <input id="top-username" type="text" name="username" tabindex="2"/>
                <label for="top-password">Password</label>
                <input id="top-password" type="password" name="password" tabindex="3"/>
                <label for="top-persistent">Remember?</label>
                <input id="top-persistent" name="remember" type="checkbox" checked="checked" tabindex="4" />
                <button id="login-input-go" value="Go" name="submit" type="submit" tabindex="5">Go</button>
+               <input type="hidden" name="next" value="{{ next }}" />
                </div>
              </form>
             </div>            
