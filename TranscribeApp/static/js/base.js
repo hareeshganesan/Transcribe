@@ -6,3 +6,6 @@ jQuery.toggleLogin = function()
 	$("#login-form").fadeIn(function(){$("side-username").focus()});
 	return false;
 }
+
+
+	

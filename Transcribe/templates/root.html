@@ -1,5 +1,7 @@
 {% extends "registration/base.html" %}
 
+{% load url from future %}
+
 {% block content %}
     
 	<div class="container-fluid">
@@ -12,9 +14,18 @@
 					<div class="span4">
 						<input id="vidurl" type="text" placeholder="Paste URL here">
 					</div>
+          <form id="save-note" method="post" action="{% url 'transcribe:save' %}">
+          {% if user.is_authenticated %}
+          {% csrf_token %}
+          <div class="span4" style:'margin-left:10px'>
+          <button class="btrn btn-large btn-inverse" id="save">Save Note</button>
+          </div>
+          {% endif %}
 					<div class="span12 well" id="notebox" onClick="this.contentEditable='true';"></div>
-					<div id="editor"></div>
-				</div>
+          <textarea id="notetext" name="notetext" style="display: none;"></textarea>
+          <input type="hidden" name="video_url" id="video_url" value="">
+          </form>
+					</div>
 			</div>
 			<div class="span6">
 				<div id="player"></div>
@@ -22,115 +33,7 @@
 		</div>
 	</div>
 	
-	<script>
 	
+<script src="{{ STATIC_URL }}js/video.js"></script>
 
-		//Model
-		function Word(word, time){
-			this.word = word;
-			this.time = time;
-		}
-		
-		//Controller
-		function wordToLink(wordObj){
-			return "<a"+" onclick=seekTo("+wordObj.time+")"+" href=#"+">"+wordObj.word+"<\a>";
-		}
-		//View
-		function seekTo(secs){
-			player.seekTo(secs, true);
-			player.playVideo();
-		}
-
-		var tag = document.createElement('script');
-
-		tag.src = "https://www.youtube.com/iframe_api";
-		var firstScriptTag = document.getElementsByTagName('script')[0];
-		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-		var player;
-		function onYouTubeIframeAPIReady() {
-		player = new YT.Player('player', {
-		  height: '390',
-		  width: '640',
-		  videoId: 'tlxfwPqB9dw',
-		  events: {
-			'onReady': onPlayerReady,
-			'onStateChange': onPlayerStateChange
-		  }
-		});
-		}
-
-		function onPlayerReady(event) {}
-		function onPlayerStateChange(event) {}
-		  
-		$("#getvideo")
-		  .button()
-		  .click(function( event ) {
-			url=$("#vidurl").val()
-			player.loadVideoById(url.substring(url.search("v=")+2));
-		  });
-		
-		
-		function setEndOfContenteditable(contentEditableElement)
-		{
-		    var range,selection;
-		    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
-		    {
-		        range = document.createRange();//Create a range (a range is a like the selection but invisible)
-		        range.selectNodeContents(contentEditableElement);//Select the entire contents of the element with the range
-		        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-		        selection = window.getSelection();//get the selection object (allows you to change selection)
-		        selection.removeAllRanges();//remove any selections already made
-		        selection.addRange(range);//make the range you have just created the visible selection
-		    }
-		    else if(document.selection)//IE 8 and lower
-		    { 
-		        range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
-		        range.moveToElementText(contentEditableElement);//Select the entire contents of the element with the range
-		        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-		        range.select();//Select the range (make it the visible selection
-		    }
-		}
-
-		lastWord = new Word("",0.0);
-		wordSet = [];
-		beginning = false;
-
-		$('#notebox').keypress(function(event) {
-			if(beginning){
-				beginning = true;
-				lastWord.time = player.getCurrentTime();
-			}
-
-			character = String.fromCharCode(event.charCode);
-			lastWord.word = lastWord.word+character;
-
-			if(event.keyCode == 32){
-        wordSet.push(jQuery.extend(deep=true, {}, lastWord)); //deep copy the old word into the wordset
-				lastWord = new Word("", player.getCurrentTime());
-			}
-			if(wordSet.length%10 == 0 && wordSet.length>0){
-				displayLinks();
-			}
-
-		});
-		
-		function displayLinks(){
-			fulltext="";
-			
-			for(j=0; j<wordSet.length; j++){
-				fulltext = fulltext.concat(wordToLink(wordSet[j])+" ");
-			}
-			$("#notebox").html(fulltext);
-			setEndOfContenteditable($("#notebox").get(0));
-      wordSet.push(new Word("", player.getCurrentTime()));
-		}
-
-	</script>
-
-{% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
-{% else %}
-    <p>Welcome, new user. Please log in.</p>
-{% endif %}
 {% endblock%}

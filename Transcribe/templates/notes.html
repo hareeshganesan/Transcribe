@@ -1,0 +1,9 @@
+{% extends "registration/center.html" %}
+
+{% block centered %}
+{% if user.is_authenticated %}
+<div class="span12 well" id="notebox" onClick="this.contentEditable='true';">{{ content }}</div>
+
+<div class ="span4 well">{{ video_url }}</div>
+{% endif %}
+{% endblock%}
