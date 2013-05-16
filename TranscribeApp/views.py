@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.template import Context, RequestContext
+from TranscribeApp.models import Note, Video
+import datetime
 
 def hello(request):
 	return HttpResponse("Hello world")
@@ -33,10 +35,14 @@ def accounts(request):
 
 
 def save(request):
-  text = request.POST["notetext"]
-  video_url = request.POST["video_url"]
-  c = RequestContext(request, {'content': text, 'video_url': video_url})
+  notetext = request.POST["text"]
+  video_url = Video(url = request.POST["video_url"])
+  c = RequestContext(request, {'content': notetext, 'video_url': video_url})
   t = get_template('notes.html')
+  
+  note = Note(video=video_url, date_created=datetime.datetime.now(), text=notetext)
+  note.save()
+  note.user.add(User.objects.get(username__exact=request.user))
   
   html = t.render(c)
   return HttpResponse(html)

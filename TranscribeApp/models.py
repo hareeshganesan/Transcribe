@@ -8,17 +8,17 @@ class Video(models.Model):
 
   
 class Note(models.Model):
-  videos = models.OneToOneField(Video)
+  video = models.ForeignKey(Video)
   date_created = models.DateTimeField()
   text = models.TextField()
   user = models.ManyToManyField(User)
+
+  
+class NoteForm(forms.ModelForm):
+  class Meta:
+    model = Note
   
 class UserProfile(models.Model):
   user = models.ForeignKey(User, unique=True)
   
-class NoteForm(forms.Form):
-  videos = models.OneToOneField(Video)
-  date_created = models.DateTimeField()
-  text = models.TextField()
-  user = models.ManyToManyField(User)
   
